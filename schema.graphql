@@ -1,0 +1,53 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+type Query @aws_api_key @aws_cognito_user_pools {
+  getUserProfile (input: GetUserProfileInput!): UserProfile
+}
+type Mutation @aws_api_key @aws_cognito_user_pools {
+  updateUserProfile (input: UpdateUserProfileInput!): UserProfile
+  createVillage (input: CreateVillageInput!): Village
+}
+
+input GetUserProfileInput {
+  dummy: String
+}
+
+input UpdateUserProfileInput {
+  name: String
+  nickname: String
+  dateOfBirth: String
+}
+
+input CreateVillageInput {
+  name: String!
+  reCreate: Boolean
+}
+
+type UserProfile @aws_api_key @aws_cognito_user_pools {
+  id: String! # primary key (unique per user)
+  email: String!
+  emailVerified: Boolean
+  nickname: String
+  dateOfBirth: String
+  avatar: String
+  name: String
+  age: Int
+  createdAt: Int
+  updatedAt: Int
+  lastLoggedInAt: Int
+}
+
+type Village @aws_api_key @aws_cognito_user_pools {
+  id: String! # primary key (unique per village)
+  name: String
+  commonerPopulation: Int
+  heroPopulation: Int
+  gold: Int
+  food: Int
+  reputation: Int
+  defenseRating: Int
+  createdAt: Int
+  updatedAt: Int
+}
